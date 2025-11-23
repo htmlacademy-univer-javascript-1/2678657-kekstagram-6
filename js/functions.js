@@ -3,14 +3,14 @@ function checkLength(str, strlength) {
 }
 
 
-function checkPolindrom(str) {
-  str = str.toLowerCase().replaceAll(' ','');
-  const strMass = str.split('');
+function checkPalindrom(str) {
+  const strMass = str.toLowerCase().replaceAll(' ','').split('');
   const reverseStr = strMass.toReversed();
   return strMass.join('') === reverseStr.join('');
 }
 
-function parsingString(str) {
+
+function extractNumber(str) {
   str = str.toString().toLowerCase().replaceAll(' ','');
   const numbers = ['0','1','2','3','4','5','6','7','8','9'];
   const strMass = str.split('');
@@ -24,7 +24,7 @@ function parsingString(str) {
 }
 
 
-function parsingStringNew(str) {
+function extractNumberNew(str) {
   str = str.toString();
   let newStr = '';
   for (const char of str) {
@@ -37,6 +37,7 @@ function parsingStringNew(str) {
 
 
 checkLength('2222', 5);
-checkPolindrom('Лёша на полке клопа нашёл ');
-parsingString('0000fjdnfjndf2323');
-parsingStringNew('fjndsfjsjdfnjnsfd342424');
+checkPalindrom('Лёша на полке клопа нашёл ');
+extractNumber('0000fjdnfjndf2323');
+extractNumberNew('fjndsfjsjdfnjnsfd342424');
+
