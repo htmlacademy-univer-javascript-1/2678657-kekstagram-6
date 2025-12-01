@@ -1,7 +1,7 @@
-import { massMessages, massUniqId } from './constants.js';
+import { massUniqId, COUNT_POSTS, MAX_COUNT_MESSAGES } from './constants.js';
 
 function generateUniqId() {
-  const i = Math.floor(Math.random() * (933 - 1 + 1)) + 1;
+  const i = getRandomNumberInRange(1, COUNT_POSTS * MAX_COUNT_MESSAGES);
   if(massUniqId.includes(i)){
     return generateUniqId();
   }
@@ -11,27 +11,14 @@ function generateUniqId() {
   }
 }
 
-function generateMessage() {
-  let message = '';
-  const countMessage = Math.floor(Math.random() * 2) + 1;
-  const usedIndexes = [];
 
-  for(let i = 0; i < countMessage; i++) {
-    let randomIndex;
-    do
-    {
-      randomIndex = Math.floor(Math.random() * massMessages.length);
-    }
-    while (usedIndexes.includes(randomIndex));
-
-    usedIndexes.push(randomIndex);
-    message += `${massMessages[randomIndex]  } `;
-  }
-
-  return message;
+function getRandomNumberInRange(min,max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 export{
   generateUniqId,
-  generateMessage,
+  getRandomNumberInRange,
 };
