@@ -1,6 +1,6 @@
-import { generateObjects } from './data.js';
+import { generatePosts } from './data.js';
 
-const photoObjects = generateObjects();
+const posts = generatePosts();
 
-export { photoObjects };
+export { posts };
 

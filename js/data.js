@@ -1,36 +1,65 @@
-import { massNames } from './constants.js';
-import { generateUniqId, generateMessage } from './util.js';
+import {
+  MASSNAMES,
+  COUNTPOSTS,
+  MAXCOUNTMESSAGES,
+  MINLIKES,
+  MAXLIKES,
+  MASSMESSAGES,
+  MINAVATARNUM,
+  MAXAVATARNUM } from './constants.js';
+import { generateUniqId, getRandomNumberInRange } from './util.js';
 
 function generateComments(count) {
   const massiveCommentsObj = [];
   for(let i = 0 ; i<count; i++){
     const commentObj = {
       id: generateUniqId(),
-      avatar: `img/avatar-${Math.floor(Math.random() * (6 - 1 + 1)) + 1}.svg`,
+      avatar: `img/avatar-${getRandomNumberInRange(MINAVATARNUM,MAXAVATARNUM)}.svg`,
       message: generateMessage(),
-      name: massNames[Math.floor(Math.random() * massNames.length)],
+      name: MASSNAMES[getRandomNumberInRange(0, MASSNAMES.length - 1)],
     };
     massiveCommentsObj.push(commentObj);
   }
   return massiveCommentsObj;
 }
 
-function generateObjects() {
+function generatePosts() {
   const massiveObject = [];
-  for(let i = 1; i<26; i++){
+  for(let i = 0; i<COUNTPOSTS; i++){
     const obj = {
       id: i,
       url: `photos/${i}.jpg`,
       description: 'Описание фотографии.',
-      likes: Math.floor(Math.random() * (200 - 15 + 1)) + 15,
-      comments: generateComments(Math.floor(Math.random() * (30 - 0 + 1)) + 0),
+      likes: getRandomNumberInRange(MINLIKES,MAXLIKES),
+      comments: generateComments(getRandomNumberInRange(0,MAXCOUNTMESSAGES)),
     };
     massiveObject.push(obj);
   }
   return massiveObject;
 }
 
+function generateMessage() {
+  let message = '';
+  const countMessage = getRandomNumberInRange(1, 2);
+  const usedIndexes = [];
+
+  for(let i = 0; i < countMessage; i++) {
+    let randomIndex;
+    do
+    {
+      randomIndex = getRandomNumberInRange(0, MASSMESSAGES.length - 1);
+    }
+    while (usedIndexes.includes(randomIndex));
+
+    usedIndexes.push(randomIndex);
+    message += `${MASSMESSAGES[randomIndex]  } `;
+  }
+
+  return message;
+}
+
 export{
   generateComments,
-  generateObjects,
+  generatePosts,
+  generateMessage,
 };
