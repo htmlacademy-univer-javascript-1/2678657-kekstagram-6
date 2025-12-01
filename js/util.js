@@ -1,7 +1,7 @@
-import { massUniqId, COUNTPOSTS, MAXCOUNTMESSAGES } from './constants.js';
+import { massUniqId, COUNT_POSTS, MAX_COUNT_MESSAGES } from './constants.js';
 
 function generateUniqId() {
-  const i = getRandomNumberInRange(1, COUNTPOSTS * MAXCOUNTMESSAGES);
+  const i = getRandomNumberInRange(1, COUNT_POSTS * MAX_COUNT_MESSAGES);
   if(massUniqId.includes(i)){
     return generateUniqId();
   }

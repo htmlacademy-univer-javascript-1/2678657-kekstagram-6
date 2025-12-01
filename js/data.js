@@ -1,12 +1,12 @@
 import {
-  MASSNAMES,
-  COUNTPOSTS,
-  MAXCOUNTMESSAGES,
-  MINLIKES,
-  MAXLIKES,
-  MASSMESSAGES,
-  MINAVATARNUM,
-  MAXAVATARNUM } from './constants.js';
+  MASS_NAMES,
+  COUNT_POSTS,
+  MAX_COUNT_MESSAGES,
+  MIN_LIKES,
+  MAX_LIKES,
+  MASS_MESSAGES,
+  MIN_AVATAR_NUM,
+  MAX_AVATAR_NUM } from './constants.js';
 import { generateUniqId, getRandomNumberInRange } from './util.js';
 
 function generateComments(count) {
@@ -14,9 +14,9 @@ function generateComments(count) {
   for(let i = 0 ; i<count; i++){
     const commentObj = {
       id: generateUniqId(),
-      avatar: `img/avatar-${getRandomNumberInRange(MINAVATARNUM,MAXAVATARNUM)}.svg`,
+      avatar: `img/avatar-${getRandomNumberInRange(MIN_AVATAR_NUM,MAX_AVATAR_NUM)}.svg`,
       message: generateMessage(),
-      name: MASSNAMES[getRandomNumberInRange(0, MASSNAMES.length - 1)],
+      name: MASS_NAMES[getRandomNumberInRange(0, MASS_NAMES.length - 1)],
     };
     massiveCommentsObj.push(commentObj);
   }
@@ -25,13 +25,13 @@ function generateComments(count) {
 
 function generatePosts() {
   const massiveObject = [];
-  for(let i = 0; i<COUNTPOSTS; i++){
+  for(let i = 0; i<COUNT_POSTS; i++){
     const obj = {
       id: i,
       url: `photos/${i}.jpg`,
       description: 'Описание фотографии.',
-      likes: getRandomNumberInRange(MINLIKES,MAXLIKES),
-      comments: generateComments(getRandomNumberInRange(0,MAXCOUNTMESSAGES)),
+      likes: getRandomNumberInRange(MIN_LIKES,MAX_LIKES),
+      comments: generateComments(getRandomNumberInRange(0,MAX_COUNT_MESSAGES)),
     };
     massiveObject.push(obj);
   }
@@ -47,12 +47,12 @@ function generateMessage() {
     let randomIndex;
     do
     {
-      randomIndex = getRandomNumberInRange(0, MASSMESSAGES.length - 1);
+      randomIndex = getRandomNumberInRange(0, MASS_MESSAGES.length - 1);
     }
     while (usedIndexes.includes(randomIndex));
 
     usedIndexes.push(randomIndex);
-    message += `${MASSMESSAGES[randomIndex]  } `;
+    message += `${MASS_MESSAGES[randomIndex]  } `;
   }
 
   return message;
