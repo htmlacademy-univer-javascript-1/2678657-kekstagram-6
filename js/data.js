@@ -25,7 +25,7 @@ function generateComments(count) {
 
 function generatePosts() {
   const massiveObject = [];
-  for(let i = 0; i<COUNT_POSTS; i++){
+  for(let i = 1; i<=COUNT_POSTS; i++){
     const obj = {
       id: i,
       url: `photos/${i}.jpg`,
