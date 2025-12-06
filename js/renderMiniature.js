@@ -1,13 +1,13 @@
-const MiniatureContainer = document.querySelector('.pictures');
+const miniatureContainer = document.querySelector('.pictures');
 
-const MiniatureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const miniatureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const fragment = document.createDocumentFragment();
 
 
 const createMiniature = function (post) {
 
-  const MiniatureElement = MiniatureTemplate.cloneNode(true);
+  const MiniatureElement = miniatureTemplate.cloneNode(true);
   const MiniatureImg = MiniatureElement.querySelector('.picture__img');
   const MiniatureLikes = MiniatureElement.querySelector('.picture__likes');
   const MiniatureComments = MiniatureElement.querySelector('.picture__comments');
@@ -27,7 +27,7 @@ const renderMiniature = function (posts) {
     fragment.appendChild(thumbnail);
   });
 
-  MiniatureContainer.appendChild(fragment);
+  miniatureContainer.appendChild(fragment);
 };
 
 export { renderMiniature };

@@ -57,11 +57,9 @@ function generateMessage() {
 
   return message;
 }
-const posts = generatePosts();
 
 export{
   generateComments,
   generatePosts,
   generateMessage,
-  posts,
 };
