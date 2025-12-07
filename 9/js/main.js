@@ -4,7 +4,6 @@ import { openBigPicture } from './fullscreen.js';
 
 const posts = generatePosts();
 
-
 renderMiniature(posts);
 
 miniatureContainer.addEventListener('click', (evt) => {
