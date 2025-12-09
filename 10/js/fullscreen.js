@@ -27,6 +27,7 @@ const createComment = (comment) => {
   return commentElement;
 };
 
+
 const fillBigPicture = (post) => {
   bigPictureImg.src = post.url;
   bigPictureImg.alt = post.description;
@@ -42,6 +43,19 @@ const fillBigPicture = (post) => {
   });
 };
 
+const closeBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', CloseWindowWithKey);
+};
+
+function CloseWindowWithKey(evt) {
+  if (evt.key === 'Escape' && !bigPicture.classList.contains('hidden')) {
+    evt.preventDefault();
+    closeBigPicture();
+  }
+}
+
 const openBigPicture = (post) => {
   fillBigPicture(post);
 
@@ -50,22 +64,13 @@ const openBigPicture = (post) => {
 
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
+
+  document.addEventListener('keydown', CloseWindowWithKey);
 };
 
-const closeBigPicture = () => {
-  bigPicture.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-};
 
 cancelButton.addEventListener('click', () => {
   closeBigPicture();
-});
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape' && !bigPicture.classList.contains('hidden')) {
-    evt.preventDefault();
-    closeBigPicture();
-  }
 });
 
 
