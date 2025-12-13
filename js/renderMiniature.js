@@ -30,4 +30,8 @@ const renderMiniature = function (posts) {
   miniatureContainer.appendChild(fragment);
 };
 
-export { renderMiniature };
+
+export {
+  renderMiniature,
+  miniatureContainer
+};

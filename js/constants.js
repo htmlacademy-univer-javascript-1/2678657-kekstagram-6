@@ -16,7 +16,6 @@ const MASS_NAMES = [
   'Ольга'
 ];
 
-
 const massUniqId = [];
 
 const COUNT_POSTS = 25;
