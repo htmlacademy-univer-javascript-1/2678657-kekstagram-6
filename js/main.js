@@ -6,16 +6,19 @@ const posts = generatePosts();
 
 renderMiniature(posts);
 
+
 miniatureContainer.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  const miniature = evt.target.closest('.picture');
+  const img = evt.target;
+  if (img.matches('.picture__img')) {
+    evt.preventDefault();
+    const miniature = evt.target.closest('.picture');
+    const miniatures = Array.from(miniatureContainer.querySelectorAll('.picture'));
+    const index = miniatures.indexOf(miniature);
 
-  const miniatures = Array.from(miniatureContainer.querySelectorAll('.picture'));
-  const index = miniatures.indexOf(miniature);
+    const post = posts[index];
 
-  const post = posts[index];
-
-  openBigPicture(post);
+    openBigPicture(post);
+  }
 });
 
 export { posts };

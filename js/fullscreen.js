@@ -1,3 +1,5 @@
+import {MAX_COMMENTS_VIEW} from './constants.js';
+
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -10,6 +12,8 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
+let shownComments = 0;
+let currentComments = [];
 
 const createComment = (comment) => {
   const commentElement = document.createElement('li');
@@ -27,6 +31,34 @@ const createComment = (comment) => {
   return commentElement;
 };
 
+const renderComments = () => {
+  socialComments.innerHTML = '';
+
+  const commentsToRender = currentComments.slice(0, shownComments);
+
+  commentsToRender.forEach((comment) => {
+    const commentElement = createComment(comment);
+    socialComments.appendChild(commentElement);
+  });
+  socialCommentCount.innerHTML = `${shownComments} из <span class="comments-count"> ${currentComments.length} </span> комментариев`;
+
+  if (shownComments >= currentComments.length) {
+    commentsLoader.classList.add('hidden');
+  } else {
+    commentsLoader.classList.remove('hidden');
+  }
+
+};
+
+const onCommentsLoaderClick = () => {
+  shownComments += MAX_COMMENTS_VIEW;
+
+  if (shownComments > currentComments.length) {
+    shownComments = currentComments.length;
+  }
+
+  renderComments();
+};
 
 const fillBigPicture = (post) => {
   bigPictureImg.src = post.url;
@@ -35,12 +67,14 @@ const fillBigPicture = (post) => {
   commentsCount.textContent = post.comments.length;
   socialCaption.textContent = post.description;
 
-  socialComments.innerHTML = '';
+  currentComments = [...post.comments];
+  shownComments = Math.min(MAX_COMMENTS_VIEW, currentComments.length);
 
-  post.comments.forEach((comment) => {
-    const commentElement = createComment(comment);
-    socialComments.appendChild(commentElement);
-  });
+  socialCommentCount.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
+
+  renderComments();
+
 };
 
 const closeBigPicture = () => {
@@ -59,13 +93,12 @@ function CloseWindowWithKey(evt) {
 const openBigPicture = (post) => {
   fillBigPicture(post);
 
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
 
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
   document.addEventListener('keydown', CloseWindowWithKey);
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 
 

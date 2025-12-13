@@ -25,6 +25,9 @@ const MAX_LIKES = 200;
 const MIN_AVATAR_NUM = 1;
 const MAX_AVATAR_NUM = 6;
 
+
+const MAX_COMMENTS_VIEW = 5;
+
 export{
   MASS_MESSAGES,
   MASS_NAMES,
@@ -35,4 +38,5 @@ export{
   MAX_LIKES,
   MIN_AVATAR_NUM,
   MAX_AVATAR_NUM,
+  MAX_COMMENTS_VIEW,
 };
