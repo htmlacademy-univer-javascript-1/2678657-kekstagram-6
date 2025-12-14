@@ -80,10 +80,10 @@ const fillBigPicture = (post) => {
 const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', CloseWindowWithKey);
+  document.removeEventListener('keydown', сloseWindowWithKey);
 };
 
-function CloseWindowWithKey(evt) {
+function сloseWindowWithKey(evt) {
   if (evt.key === 'Escape' && !bigPicture.classList.contains('hidden')) {
     evt.preventDefault();
     closeBigPicture();
@@ -97,7 +97,7 @@ const openBigPicture = (post) => {
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  document.addEventListener('keydown', CloseWindowWithKey);
+  document.addEventListener('keydown', сloseWindowWithKey);
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 
