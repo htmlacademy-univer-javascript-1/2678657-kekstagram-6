@@ -40,7 +40,12 @@ const renderComments = () => {
     const commentElement = createComment(comment);
     socialComments.appendChild(commentElement);
   });
-  socialCommentCount.innerHTML = `${shownComments} из <span class="comments-count"> ${currentComments.length} </span> комментариев`;
+  if(currentComments.length === 0) {
+    socialCommentCount.innerHTML = 'Комментариев нет';
+  }
+  else{
+    socialCommentCount.innerHTML = `${shownComments} из <span class="comments-count"> ${currentComments.length} </span> комментариев`;
+  }
 
   if (shownComments >= currentComments.length) {
     commentsLoader.classList.add('hidden');
