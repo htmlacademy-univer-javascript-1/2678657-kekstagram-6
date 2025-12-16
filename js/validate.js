@@ -1,9 +1,12 @@
-import { HASHTAG_REGEX } from './constants.js';
+import { HASHTAG_REGEX,
+  MAX_LENGTH_COMMENT,
+  MAX_COUNT_HASHTEGS,
+  MAX_LENGTH_ONE_HASHTEG } from './constants.js';
 
-let ErrorMessage = '';
+let errorMessage = '';
 
 const validateHashtags = (value) => {
-  ErrorMessage = '';
+  errorMessage = '';
 
   const trimmed = value.trim();
 
@@ -13,8 +16,8 @@ const validateHashtags = (value) => {
 
   const hashtags = trimmed.split(/\s+/).filter((hashtag) => hashtag.length > 0);
 
-  if (hashtags.length > 5) {
-    ErrorMessage = 'Нельзя указать больше 5 хэштегов';
+  if (hashtags.length > MAX_COUNT_HASHTEGS) {
+    errorMessage = `Нельзя указать больше ${MAX_COUNT_HASHTEGS} хэштегов`;
     return false;
   }
   const lowerCaseTags = [];
@@ -23,24 +26,30 @@ const validateHashtags = (value) => {
     const lowerTag = hashtag.toLowerCase();
 
     if (!hashtag.startsWith('#')) {
-      ErrorMessage = 'Хэштег должен начинаться с символа #';
+      errorMessage = 'Хэштег должен начинаться с символа #';
       return false;
     }
 
     if (hashtag === '#') {
-      ErrorMessage = 'Хэштег не может состоять только из решётки';
+      errorMessage = 'Хэштег не может состоять только из решётки';
       return false;
     }
 
     if (!hashtag.match(HASHTAG_REGEX)) {
-      ErrorMessage = 'Хэштег может содержать только буквы и цифры';
+      errorMessage = 'Хэштег может содержать только буквы и цифры';
       return false;
     }
 
     if (lowerCaseTags.includes(lowerTag)) {
-      ErrorMessage = 'Хэштеги не должны повторяться';
+      errorMessage = 'Хэштеги не должны повторяться';
       return false;
     }
+
+    if (hashtag.length > MAX_LENGTH_ONE_HASHTEG) {
+      errorMessage = `Максимальная длина одного хэш-тега ${MAX_LENGTH_ONE_HASHTEG} символов, включая решётку`;
+      return false;
+    }
+
 
     lowerCaseTags.push(lowerTag);
   }
@@ -48,10 +57,10 @@ const validateHashtags = (value) => {
   return true;
 };
 
-const getHashtagErrorMessage = () => ErrorMessage;
+const getHashtagErrorMessage = () => errorMessage;
 
 
-const validateDescription = (value) => value.length <= 140;
+const validateDescription = (value) => value.length <= MAX_LENGTH_COMMENT;
 
 
 const initValidation = (pristine, hashtagsInput, descriptionInput) => {
