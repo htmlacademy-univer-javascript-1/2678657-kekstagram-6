@@ -20,6 +20,6 @@ miniatureContainer.addEventListener('click', (evt) => {
     openBigPicture(post);
   }
 });
-
 export { posts };
+
 
