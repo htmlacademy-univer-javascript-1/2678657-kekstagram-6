@@ -19,9 +19,45 @@ const pristine = new Pristine(uploadForm, {
 
 initValidation(pristine, hashtagsInput, descriptionInput);
 
+
+function closeOnEsc(evt){
+  const isFieldFocused = hashtagsInput.matches(':focus') || descriptionInput.matches(':focus');
+
+  if (evt.key === 'Escape' && !uploadOverlay.classList.contains('hidden') && isFieldFocused){
+    evt.preventDefault();
+    hideEditForm();
+  }
+}
+
+function stopOnHashtags(evt){
+  if (evt.key === 'Escape') {
+    evt.stopPropagation();
+  }
+}
+
+function stopOnDescription(evt){
+  if (evt.key === 'Escape') {
+    evt.stopPropagation();
+  }
+}
+
+function validateHashtagsOnInput() {
+  pristine.validate(hashtagsInput);
+}
+
+function validateDescriptionOnInput() {
+  pristine.validate(descriptionInput);
+}
+
 const showEditForm = () => {
   uploadOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
+
+  document.addEventListener('keydown', closeOnEsc);
+  hashtagsInput.addEventListener('keydown', stopOnHashtags);
+  descriptionInput.addEventListener('keydown', stopOnDescription);
+  hashtagsInput.addEventListener('input', validateHashtagsOnInput);
+  descriptionInput.addEventListener('input', validateDescriptionOnInput);
 };
 
 function hideEditForm() {
@@ -30,36 +66,13 @@ function hideEditForm() {
   uploadInput.value = '';
   uploadForm.reset();
   pristine.reset();
+
+  document.removeEventListener('keydown', closeOnEsc);
+  hashtagsInput.removeEventListener('keydown', stopOnHashtags);
+  descriptionInput.removeEventListener('keydown', stopOnDescription);
+  hashtagsInput.removeEventListener('input', validateHashtagsOnInput);
+  descriptionInput.removeEventListener('input', validateDescriptionOnInput);
 }
-
-uploadInput.addEventListener('change', () => {
-  showEditForm();
-}
-);
-
-uploadCancel.addEventListener('click', hideEditForm);
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape' &&
-      !uploadOverlay.classList.contains('hidden') &&
-      !hashtagsInput.matches(':focus') &&
-      !descriptionInput.matches(':focus')) {
-    evt.preventDefault();
-    hideEditForm();
-  }
-});
-
-hashtagsInput.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    evt.stopPropagation();
-  }
-});
-
-descriptionInput.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    evt.stopPropagation();
-  }
-});
 
 uploadForm.addEventListener('submit', (evt) => {
   if (!pristine.validate()) {
@@ -67,6 +80,9 @@ uploadForm.addEventListener('submit', (evt) => {
   }
 });
 
-hashtagsInput.addEventListener('input', () => pristine.validate(hashtagsInput));
-descriptionInput.addEventListener('input', () => pristine.validate(descriptionInput));
+uploadInput.addEventListener('change', () => {
+  showEditForm();
+}
+);
 
+uploadCancel.addEventListener('click', hideEditForm);
