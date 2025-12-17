@@ -4,7 +4,6 @@ const miniatureTemplate = document.querySelector('#picture').content.querySelect
 
 const fragment = document.createDocumentFragment();
 
-
 const createMiniature = function (post) {
 
   const miniatureElement = miniatureTemplate.cloneNode(true);
