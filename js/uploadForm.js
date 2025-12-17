@@ -23,7 +23,7 @@ initValidation(pristine, hashtagsInput, descriptionInput);
 function closeOnEsc(evt){
   const isFieldFocused = hashtagsInput.matches(':focus') || descriptionInput.matches(':focus');
 
-  if (evt.key === 'Escape' && !uploadOverlay.classList.contains('hidden') && isFieldFocused){
+  if (evt.key === 'Escape' && !uploadOverlay.classList.contains('hidden') && !isFieldFocused){
     evt.preventDefault();
     hideEditForm();
   }
