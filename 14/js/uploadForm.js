@@ -78,8 +78,9 @@ function hideEditForm() {
 }
 
 uploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
   if (!pristine.validate()) {
-    evt.preventDefault();
+    return;
   }
 
   const formData = new FormData(uploadForm);
