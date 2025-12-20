@@ -1,11 +1,17 @@
-import { generatePosts } from './data.js';
+import { createLoader } from './api.js';
 import { renderMiniature, miniatureContainer } from './renderMiniature.js';
 import { openBigPicture } from './fullscreen.js';
+import { showErrorDataMessage } from './messages.js';
 
-const posts = generatePosts();
+let posts = [];
 
-renderMiniature(posts);
-
+createLoader(
+  (data) => {
+    posts = data;
+    renderMiniature(posts);
+  },
+  () => showErrorDataMessage()
+);
 
 miniatureContainer.addEventListener('click', (evt) => {
   const img = evt.target;
@@ -20,6 +26,5 @@ miniatureContainer.addEventListener('click', (evt) => {
     openBigPicture(post);
   }
 });
+
 export { posts };
-
-

@@ -35,6 +35,10 @@ const MAX_COUNT_HASHTEGS = 5;
 
 const MAX_LENGTH_ONE_HASHTEG = 20;
 
+const DATA_URL =  'https://29.javascript.htmlacademy.pro/kekstagram/data';
+
+const SERVER_URL = 'https://29.javascript.htmlacademy.pro/kekstagra3m';
+
 export{
   MASS_MESSAGES,
   MASS_NAMES,
@@ -50,4 +54,6 @@ export{
   MAX_LENGTH_COMMENT,
   MAX_COUNT_HASHTEGS,
   MAX_LENGTH_ONE_HASHTEG,
+  DATA_URL,
+  SERVER_URL,
 };

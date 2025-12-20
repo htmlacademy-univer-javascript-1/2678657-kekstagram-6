@@ -1,4 +1,5 @@
 import { initValidation } from './validate.js';
+import { createSender } from './api.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = document.querySelector('.img-upload__input');
@@ -6,6 +7,8 @@ const uploadOverlay = document.querySelector('.img-upload__overlay');
 const uploadCancel = document.querySelector('.img-upload__cancel');
 const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const descriptionInput = uploadForm.querySelector('.text__description');
+
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -78,11 +81,21 @@ uploadForm.addEventListener('submit', (evt) => {
   if (!pristine.validate()) {
     evt.preventDefault();
   }
+
+  const formData = new FormData(uploadForm);
+
+  createSender(
+    formData,
+    () => {
+      hideEditForm();
+    },
+    () => {},
+    submitButton
+  );
 });
 
 uploadInput.addEventListener('change', () => {
   showEditForm();
-}
-);
+});
 
 uploadCancel.addEventListener('click', hideEditForm);
