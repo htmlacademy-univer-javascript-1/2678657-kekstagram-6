@@ -1,11 +1,11 @@
-import { createLoader } from './api.js';
+import { loadData } from './api.js';
 import { renderMiniature, miniatureContainer } from './renderMiniature.js';
 import { openBigPicture } from './fullscreen.js';
 import { showErrorDataMessage } from './messages.js';
 
 let posts = [];
 
-createLoader(
+loadData(
   (data) => {
     posts = data;
     renderMiniature(posts);

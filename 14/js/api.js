@@ -1,7 +1,7 @@
 import { showSuccessMessage, showErrorMessage, showLoadingMessage } from './messages.js';
 import { DATA_URL, SERVER_URL } from './constants.js';
 
-const createLoader = (onSuccess, onError) => {
+const loadData = (onSuccess, onError) => {
   const loadingMessage = showLoadingMessage();
   return  fetch(DATA_URL, {
     method: 'GET',
@@ -19,7 +19,7 @@ const createLoader = (onSuccess, onError) => {
       loadingMessage.remove();
     });
 };
-const createSender = (formData, onSuccess, onError, submitButton) => {
+const createSender = (formData, onSuccess, submitButton) => {
   submitButton.disabled = true;
 
   const loadingMessage = showLoadingMessage();
@@ -39,7 +39,6 @@ const createSender = (formData, onSuccess, onError, submitButton) => {
       showSuccessMessage();
     })
     .catch(() => {
-      onError();
       showErrorMessage();
     })
     .finally(() => {
@@ -49,4 +48,4 @@ const createSender = (formData, onSuccess, onError, submitButton) => {
     });
 };
 
-export { createLoader, createSender };
+export { loadData, createSender };

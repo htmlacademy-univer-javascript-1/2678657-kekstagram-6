@@ -1,5 +1,6 @@
 import { initValidation } from './validate.js';
 import { createSender } from './api.js';
+import { isAnyMessageOpen } from './messages.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = document.querySelector('.img-upload__input');
@@ -24,6 +25,9 @@ initValidation(pristine, hashtagsInput, descriptionInput);
 
 
 function closeOnEsc(evt){
+  if (isAnyMessageOpen()) {
+    return;
+  }
   const isFieldFocused = hashtagsInput.matches(':focus') || descriptionInput.matches(':focus');
 
   if (evt.key === 'Escape' && !uploadOverlay.classList.contains('hidden') && !isFieldFocused){
@@ -51,6 +55,7 @@ function validateHashtagsOnInput() {
 function validateDescriptionOnInput() {
   pristine.validate(descriptionInput);
 }
+
 
 const showEditForm = () => {
   uploadOverlay.classList.remove('hidden');
@@ -90,7 +95,6 @@ uploadForm.addEventListener('submit', (evt) => {
     () => {
       hideEditForm();
     },
-    () => {},
     submitButton
   );
 });

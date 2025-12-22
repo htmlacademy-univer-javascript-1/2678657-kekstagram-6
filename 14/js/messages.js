@@ -3,14 +3,19 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 const errorDataTemplate = document.querySelector('#errorData').content.querySelector('.errorData');
 const messageTemplate = document.querySelector('#messages').content.querySelector('.img-upload__message');
 
+let isMessageOpen = false;
+
 const showMessage = (template) => {
   const messageElement = template.cloneNode(true);
+  isMessageOpen = true;
+
 
   messageElement.style.zIndex = '2';
   document.body.appendChild(messageElement);
 
   const closeMessage = () => {
     messageElement.remove();
+    isMessageOpen = false;
     document.removeEventListener('keydown', onEscKeyDown);
     document.removeEventListener('click', onDocumentClick);
   };
@@ -23,7 +28,7 @@ const showMessage = (template) => {
   }
 
   function onDocumentClick(evt){
-    if (!messageElement.contains(evt.target)) {
+    if (evt.target === messageElement) {
       closeMessage();
     }
   }
@@ -41,6 +46,7 @@ const showMessage = (template) => {
       closeButton.addEventListener('click', closeMessage);
     }
   }
+
 
   document.addEventListener('keydown', onEscKeyDown);
   document.addEventListener('click', onDocumentClick);
@@ -64,4 +70,6 @@ const showLoadingMessage = () => {
   return loadingMessage;
 };
 
-export { showSuccessMessage, showErrorMessage, showErrorDataMessage, showLoadingMessage };
+const isAnyMessageOpen = () => isMessageOpen;
+
+export { showSuccessMessage, showErrorMessage, showErrorDataMessage, showLoadingMessage, isAnyMessageOpen };
