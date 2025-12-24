@@ -1,6 +1,7 @@
 import { initValidation } from './validate.js';
 import { postSender } from './api.js';
 import { isAnyMessageOpen } from './messages.js';
+import { DEFAULT_UPLOAD_IMAGE, FILE_TYPES } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadInput = document.querySelector('.img-upload__input');
@@ -10,6 +11,9 @@ const hashtagsInput = uploadForm.querySelector('.text__hashtags');
 const descriptionInput = uploadForm.querySelector('.text__description');
 
 const submitButton = uploadForm.querySelector('.img-upload__submit');
+
+const previewPhoto = document.querySelector('.img-upload__preview img');
+const effectsPreview = uploadOverlay.querySelectorAll('.effects__preview');
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -68,12 +72,20 @@ const showEditForm = () => {
   descriptionInput.addEventListener('input', validateDescriptionOnInput);
 };
 
-function hideEditForm() {
-  uploadOverlay.classList.add('hidden');
-  document.body.classList.remove('modal-open');
+const resetUploadForm = () => {
   uploadInput.value = '';
   uploadForm.reset();
   pristine.reset();
+  previewPhoto.src = DEFAULT_UPLOAD_IMAGE;
+  effectsPreview.forEach((effect) => {
+    effect.style.backgroundImage = `url(${DEFAULT_UPLOAD_IMAGE})`;
+  });
+};
+
+function hideEditForm() {
+  uploadOverlay.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  resetUploadForm();
 
   document.removeEventListener('keydown', closeOnEsc);
   hashtagsInput.removeEventListener('keydown', stopOnHashtags);
@@ -99,8 +111,25 @@ uploadForm.addEventListener('submit', (evt) => {
   );
 });
 
+const updatePhotos = () => {
+  const file = uploadInput.files[0];
+  const fileName = file.name.toLowerCase();
+  const blob = URL.createObjectURL(file);
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    previewPhoto.src = blob;
+
+    effectsPreview.forEach((effect) => {
+      effect.style.backgroundImage = `url(${blob})`;
+    });
+  }
+};
+
 uploadInput.addEventListener('change', () => {
   showEditForm();
+  updatePhotos();
 });
 
 uploadCancel.addEventListener('click', hideEditForm);
