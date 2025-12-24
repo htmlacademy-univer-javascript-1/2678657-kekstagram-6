@@ -1,0 +1,11 @@
+.pristine-error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+}
+
+.img-upload__field-wrapper.has-danger .text__hashtags,
+.img-upload__field-wrapper.has-danger .text__description {
+  border-color: red;
+}
