@@ -30,7 +30,7 @@
       <section class="img-upload">
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
-          <form class="img-upload__form" id="upload-select-image" action="https://29.javascript.htmlacademy.pro/kekstagram" method="post" enctype="multipart/form-data" autocomplete="off">
+          <form class="img-upload__form" id="upload-select-image" autocomplete="off">
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
@@ -217,6 +217,15 @@
     </section>
   </template>
 
+  <template id="errorData">
+    <section class="errorData">
+      <div class="errorData__inner">
+        <h2 class="errorData__title">Ошибка загрузки данных</h2>
+        <button type="button" class="errorData__button">Перезагрузить страницу</button>
+      </div>
+    </section>
+  </template>
+
   <!-- Сообщение об успешной загрузке изображения -->
   <template id="success">
     <section class="success">
@@ -227,6 +236,8 @@
     </section>
   </template>
 
+  
+
   <!-- Экран загрузки изображения -->
   <template id="messages">
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
@@ -236,5 +247,6 @@
   <script defer src="js/functions.js"></script>
   <script defer src="js/main.js" type="module"></script>
   <script defer src="js/uploadForm.js" type="module"></script>
+  <script defer src="js/api.js" type="module"></script>
 </body>
 </html>
