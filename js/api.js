@@ -1,9 +1,9 @@
 import { showSuccessMessage, showErrorMessage, showLoadingMessage } from './messages.js';
-import { DATA_URL, SERVER_URL } from './constants.js';
+import { SERVER_URL } from './constants.js';
 
 const loadData = (onSuccess, onError) => {
   const loadingMessage = showLoadingMessage();
-  return  fetch(DATA_URL, {
+  return  fetch(`${SERVER_URL}/data`, {
     method: 'GET',
     credentials: 'same-origin',
   })
