@@ -1,5 +1,7 @@
 //import { massUniqId, COUNT_POSTS, MAX_COUNT_MESSAGES } from './constants.js';
 
+import { TIMEOUT_DELAY } from './constants.js';
+
 function generateUniqId() {
   /*const i = getRandomNumberInRange(1, COUNT_POSTS * MAX_COUNT_MESSAGES);
   if(massUniqId.includes(i)){
@@ -20,8 +22,19 @@ function getRandomNumberInRange(min,max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function debounce (callback, timeoutDelay = TIMEOUT_DELAY) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
 
 export{
   generateUniqId,
   getRandomNumberInRange,
+  debounce,
 };
