@@ -37,6 +37,10 @@ const MAX_LENGTH_ONE_HASHTEG = 20;
 
 const SERVER_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
+const MAX_RANDOM_POST_COUNT = 10;
+
+const TIMEOUT_DELAY = 500;
+
 export{
   MASS_MESSAGES,
   MASS_NAMES,
@@ -53,4 +57,6 @@ export{
   MAX_COUNT_HASHTEGS,
   MAX_LENGTH_ONE_HASHTEG,
   SERVER_URL,
+  MAX_RANDOM_POST_COUNT,
+  TIMEOUT_DELAY,
 };

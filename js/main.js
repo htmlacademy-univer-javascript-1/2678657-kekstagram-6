@@ -2,6 +2,7 @@ import { loadData } from './api.js';
 import { renderMiniature, miniatureContainer } from './renderMiniature.js';
 import { openBigPicture } from './fullscreen.js';
 import { showErrorDataMessage } from './messages.js';
+import { initFilters } from './filters.js';
 
 let posts = [];
 
@@ -9,6 +10,7 @@ loadData(
   (data) => {
     posts = data;
     renderMiniature(posts);
+    initFilters();
   },
   () => showErrorDataMessage()
 );
