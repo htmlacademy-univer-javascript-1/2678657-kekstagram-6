@@ -1,20 +1,12 @@
 import { posts } from './main.js';
 import { MAX_RANDOM_POST_COUNT } from './constants.js';
 import { renderMiniature } from './renderMiniature.js';
+import { debounce } from './util.js';
 
 const filterSection = document.querySelector('.img-filters');
 const filterForm = document.querySelector('.img-filters__form');
 const filterButtons = filterForm.querySelectorAll('.img-filters__button');
 
-function debounce (callback, timeoutDelay = 500) {
-  let timeoutId;
-
-  return (...rest) => {
-    clearTimeout(timeoutId);
-
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-}
 
 const comparePostsWithComments = (postA, postB) => {
   const countA = postA.comments.length;
@@ -40,7 +32,6 @@ const filterPosts = (filterId) => {
       break;
     case 'filter-default':
     default:
-      filteredPosts = [...posts];
       break;
   }
   return filteredPosts;
