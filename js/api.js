@@ -43,8 +43,6 @@ const postSender = (formData, onSuccess, submitButton) => {
     })
     .finally(() => {
       loadingMessage.remove();
-
-      submitButton.disabled = false;
     });
 };
 

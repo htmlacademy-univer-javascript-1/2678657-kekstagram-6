@@ -32,7 +32,6 @@ function debounce (callback, timeoutDelay = TIMEOUT_DELAY) {
   };
 }
 
-
 export{
   generateUniqId,
   getRandomNumberInRange,
