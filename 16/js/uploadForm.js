@@ -141,6 +141,7 @@ const updatePhotos = () => {
   });
 };
 
+
 uploadInput.addEventListener('change', () => {
   showEditForm();
   updatePhotos();
