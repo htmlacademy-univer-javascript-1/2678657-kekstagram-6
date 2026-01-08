@@ -1,6 +1,6 @@
 import { initValidation } from './validate.js';
 import { postSender } from './api.js';
-import { isAnyMessageOpen } from './messages.js';
+import { isAnyMessageOpen, showFileTypeErrorMessage } from './messages.js';
 import { DEFAULT_UPLOAD_IMAGE, FILE_TYPES } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
@@ -113,18 +113,32 @@ uploadForm.addEventListener('submit', (evt) => {
 
 const updatePhotos = () => {
   const file = uploadInput.files[0];
-  const fileName = file.name.toLowerCase();
-  const blob = URL.createObjectURL(file);
 
-  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
-
-  if (matches) {
-    previewPhoto.src = blob;
-
-    effectsPreview.forEach((effect) => {
-      effect.style.backgroundImage = `url(${blob})`;
-    });
+  if (!file) {
+    return;
   }
+
+  const isValidType = FILE_TYPES.some((type) => {
+    if (type.includes('/')) {
+      return file.type === type;
+    } else {
+      return file.name.toLowerCase().endsWith(type);
+    }
+  });
+
+  if (!isValidType) {
+    showFileTypeErrorMessage();
+    uploadInput.value = '';
+    hideEditForm();
+    return;
+  }
+
+  const blob = URL.createObjectURL(file);
+  previewPhoto.src = blob;
+
+  effectsPreview.forEach((effect) => {
+    effect.style.backgroundImage = `url(${blob})`;
+  });
 };
 
 uploadInput.addEventListener('change', () => {

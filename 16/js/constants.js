@@ -37,7 +37,7 @@ const MAX_LENGTH_ONE_HASHTEG = 20;
 
 const SERVER_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+const FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
 const DEFAULT_UPLOAD_IMAGE = 'img/upload-default-image.jpg';
 
