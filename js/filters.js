@@ -32,7 +32,6 @@ const filterPosts = (filterId) => {
       break;
     case 'filter-default':
     default:
-      filteredPosts = [...posts];
       break;
   }
   return filteredPosts;
